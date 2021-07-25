@@ -1,0 +1,22 @@
+numero	aerolionea	pasajeros
+1	abc	45
+2	def	78
+3	ghi	45
+4	jkl	79
+5	mno	75
+6	pqe	81
+7	adaw	95
+8	dsad	25
+9	erf	75
+10	tghg	72
+11	jjd	71
+12	aas	70
+13	aqqw	81
+14	asdad	85
+15	tfvdf	88
+16	fwsnbifs	90
+17	enterprise	97
+18	peruair	94
+19	latam	96
+20	sedam	97
+
