@@ -18,23 +18,31 @@ void Aeropuerto::verTodos() {
     }*/
 }
 
-Aeropuerto::Aeropuerto() {
-
-}
+Aeropuerto::Aeropuerto() {}
 
 Aeropuerto::Aeropuerto(string n) {
     nombre=n;
 }
 
+int Aeropuerto::getCantidad(){
+    int cant=0;
+    for (int i = 0; i < sizeof (flota); ++i) {
+        cant++;
+    }
+    return cant;
+}
 void Aeropuerto::verNombre() {
     cout<<nombre<<endl;
+}
+Avion* Aeropuerto::getFlota(){
+    return flota;
 }
 Avion Aeropuerto::getAvion(int i){
     return flota[i];
 }
 
 void Aeropuerto::addAvion(Avion a) {
-    int i=1;
+    int i=0;
     flota[i]=a;
     i++;
 }

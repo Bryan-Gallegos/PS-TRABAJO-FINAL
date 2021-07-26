@@ -19,6 +19,8 @@ public:
     void verTodos();
     void verNombre();
     void addAvion(Avion a);
+    Avion* getFlota();
+    int getCantidad();
     Avion getAvion(int i);
 };
 

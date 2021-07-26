@@ -22,32 +22,32 @@ int menuPrincipal();
 void inicioSesion();
 void registro();
 void mostrarMenu();
-void administrador();
 void adminMenu();
+
+
+// Usuarios por default
 static Usuario usuarios[10];
-Usuario a("juan", "perez", "relarte");
-Usuario b("raul","gonzales","raul123");
-Usuario admin1("jimy","revilla","tellez");
-Usuario admin2("bryan","gallegos","carlos");
-Usuario admin3("frank","ccapa","usca");
-Usuario admin4("ayrton","garcia","puma");
-Avion plane1("LAN", 100, new Fecha(23,12,2021), new Hora(12,30), new Hora(2,15));
+Usuario a("jimy", "revilla", "tellez");
+Usuario b("bryan","gallegos","carlos");
+
+//Creando aviones por default
+Avion plane1("LATAM Perú", 100, new Fecha(23,10,2021), new Hora(12,30), new Hora(14,15));
+Avion plane2("AVIANCA Perú", 100, new Fecha(5,9,2021), new Hora(14,00), new Hora(17,30));
+Avion plane3("Peruvian Airlines", 100, new Fecha(14,11,2021), new Hora(16,15), new Hora(21,00));
+
+//Creando aeropuerto por default
 static Aeropuerto afr("Alfredo Rodriguez");
 
 
-static Usuario  admins [8];
+
 
 int main()
 {
     usuarios[0] = a;
     usuarios[1] = b;
-    admins[0]=admin1;
-    admins[1]=admin2;
-    admins[2]=admin3;
-    admins[3]=admin4;
     afr.addAvion(plane1);
-    /*Boleta b(usuarios[0], a, 16);
-    b.generarBoleta();*/
+    afr.addAvion(plane2);
+    afr.addAvion(plane3);
     int valor;
     valor = menuPrincipal();
     switch (valor)
@@ -55,13 +55,10 @@ int main()
         case 1: //inicio de sesion
             inicioSesion();
             break;
-        case 2:
-            administrador();
-            break;
-        case 3: //registro de usuario
+        case 2: //registro de usuario
             registro();
             break;
-        case 4: //salir del programa
+        case 3: //salir del programa
             break;
         default: //opcion no valida
             cout << "\t\t Opcion desconocida" << endl;
@@ -76,9 +73,8 @@ int menuPrincipal()
     int op;
     cout << "============ Reservaciones de Pasajes ============" << endl;
     cout << " \t\t1. Iniciar Sesion  " << endl;
-    cout << " \t\t2. Iniciar como Administrador" << endl;
-    cout << " \t\t3. Registrarse " << endl;
-    cout << " \t\t4. Salir " << endl;
+    cout << " \t\t2. Registrarse " << endl;
+    cout << " \t\t3. Salir " << endl;
     cout << "==================================================" << endl;
     cout << " Ingrese una opcion: ";
 
@@ -89,7 +85,6 @@ int menuPrincipal()
 
 void inicioSesion()
 {
-
     string usuario, password;
 
     int contador = 0;
@@ -152,80 +147,8 @@ void inicioSesion()
         mostrarMenu();
     }
 }
-int contador = 0;
-bool ingresa = false;
-void administrador()
-{
-    // Se añaden usuarios al vector
-
-    string usuario, password;
 
 
-
-    do
-    {
-        system("cls");
-        cout << "============ Inicio de Sesion ============" << endl;
-        cout << "\t\t\tLOGIN DE USUARIO COMO ADMINISTRADOR" << endl;
-        cout << "\t\t\t----------------" << endl;
-        cout << "\n\tUsuario: ";
-        cin>>usuario;
-        char caracter;
-        cout << "\tPassword: ";
-        caracter = getch();
-
-        password = "";
-
-        while (caracter != ENTER)
-        {
-
-            if (caracter != BACKSPACE)
-            {
-                password.push_back(caracter);
-                cout << "*";
-            }
-            else
-            {
-                if (password.length() > 0)
-                {
-                    cout << "\b \b";
-                    password = password.substr(0, password.length() - 1);
-                }
-            }
-
-            caracter = getch();
-        }
-
-        for (int i = 0; i < sizeof(admins); i++)
-        {
-            if (admins[i].nombre == usuario && admins[i].contrasenia == password)
-            {
-                ingresa = true;
-                break;
-            }
-        }
-
-        if (!ingresa)
-        {
-            cout << "\n\n\tEl usuario y/o password son incorrectos" << endl;
-            cin.get();
-            contador++;
-        }
-
-    } while (ingresa == false && contador < INTENTOS);
-
-    if (ingresa == false)
-    {
-        cout << "\n\tUsted no pudo ingresar al sistema. ADIOS" << endl;
-    }
-    else
-    {
-        cout << "\n\n\tBienvenido al sistema" << endl;
-        adminMenu();
-    }
-
-
-}
 int i=4;
 void registro()
 {
@@ -245,7 +168,7 @@ void registro()
     cin >> contrasenia;
     cout <<endl;
     Usuario a(nombre,apellido,contrasenia);
-    admins[i]=a;
+    usuarios[i]=a;
     i++;
 
     cout << "============ Registro Exitoso ============" << endl;
@@ -268,6 +191,11 @@ void mostrarMenu()
     {
         case 1: //Añadir nueva reservación
             cout << endl;
+            for (int j = 0; j < afr.getCantidad(); ++j) {
+                cout<< afr.flota[i].aerolinea+"\t";
+                cout<<"glotas";
+            }
+            cout<<endl;
             cout << "\tIngrese nombre de aerolinea";
             cin>>nom;
             if(afr.getAvion(0).aerolinea!=nom){
