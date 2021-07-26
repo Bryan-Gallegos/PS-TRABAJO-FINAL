@@ -3,8 +3,6 @@
 //
 
 #include "Boleta.h"
-#include "Usuario.h"
-#include "Avion.h"
 
 
 Boleta::Boleta(Usuario u, Avion a, int as) {
@@ -29,13 +27,3 @@ void Boleta::generarBoleta() {
     cout<<"Costo de Vuelo: "<<costo<<endl;
 }
 
-Boleta::Boleta() {
-    nombre="";
-    apellido="";
-    asiento=0;
-    aerolinea="";
-    fechaV=new Fecha(0,0,0);
-    horaPartida=new Hora(0,0);
-    horaLlegada=new Hora(0,0);
-    costo=0;
-}

@@ -1,16 +1,21 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <cstring>
 #include <cstdlib>
 #include <conio.h> // getch
 #include <vector>
 #include "Usuario.h"
-#include "Usuario.cpp"
+#include "Fecha.h"
+#include "Hora.h"
+#include "Avion.h"
+#include "Aeropuerto.h"
+#include "Boleta.h"
+
 //nuevo
 #define ENTER 13
 #define BACKSPACE 8
 #define INTENTOS 3
-using namespace std;
 using namespace std;
 
 int menuPrincipal();
@@ -19,9 +24,30 @@ void registro();
 void mostrarMenu();
 void administrador();
 void adminMenu();
+static Usuario usuarios[10];
+Usuario a("juan", "perez", "relarte");
+Usuario b("raul","gonzales","raul123");
+Usuario admin1("jimy","revilla","tellez");
+Usuario admin2("bryan","gallegos","carlos");
+Usuario admin3("frank","ccapa","usca");
+Usuario admin4("ayrton","garcia","puma");
+Avion plane1("LAN", 100, new Fecha(23,12,2021), new Hora(12,30), new Hora(2,15));
+static Aeropuerto afr("Alfredo Rodriguez");
+
+
+static Usuario  admins [8];
 
 int main()
 {
+    usuarios[0] = a;
+    usuarios[1] = b;
+    admins[0]=admin1;
+    admins[1]=admin2;
+    admins[2]=admin3;
+    admins[3]=admin4;
+    afr.addAvion(plane1);
+    /*Boleta b(usuarios[0], a, 16);
+    b.generarBoleta();*/
     int valor;
     valor = menuPrincipal();
     switch (valor)
@@ -63,11 +89,6 @@ int menuPrincipal()
 
 void inicioSesion()
 {
-    Usuario usuarios[10];
-    int i=0;
-    // Se añaden usuarios al vector
-    usuarios[0] = new Usuario("juan","perez","relarte"); ++i;
-    usuarios[1] = new Usuario("raul","gonzales","raul123");++i;
 
     string usuario, password;
 
@@ -81,7 +102,7 @@ void inicioSesion()
         cout << "\t\t\tLOGIN DE USUARIO" << endl;
         cout << "\t\t\t----------------" << endl;
         cout << "\n\tUsuario: ";
-        getline(cin, usuario);
+        cin>>usuario;
         cout<<endl;
 
         char caracter;
@@ -131,29 +152,24 @@ void inicioSesion()
         mostrarMenu();
     }
 }
-static Usuario  admins [8];
+int contador = 0;
+bool ingresa = false;
 void administrador()
 {
     // Se añaden usuarios al vector
 
-    admins[0]=new Usuario("jimy","revilla","tellez");
-    admins[1]=new Usuario("bryan","gallegos","carlos");
-    admins[2]=new Usuario("frank","ccapa","usca");
-    admins[3]=new Usuario("ayrton","garcia","puma");
-
     string usuario, password;
 
-    int contador = 0;
-    bool ingresa = false;
+
 
     do
     {
         system("cls");
-        cout << "============ Inicio de Sesión ============" << endl;
-        cout << "\t\t\tLOGIN DE USUARIO DE ADMINISTRADOR" << endl;
+        cout << "============ Inicio de Sesion ============" << endl;
+        cout << "\t\t\tLOGIN DE USUARIO COMO ADMINISTRADOR" << endl;
         cout << "\t\t\t----------------" << endl;
         cout << "\n\tUsuario: ";
-        getline(cin, usuario);
+        cin>>usuario;
         char caracter;
         cout << "\tPassword: ";
         caracter = getch();
@@ -210,11 +226,11 @@ void administrador()
 
 
 }
-
+int i=4;
 void registro()
 {
     string nombre, apellido, usuario, contrasenia;
-    int i=4;
+
     cout << "============ Registro ============" << endl;
     cout << "\t\t Nombre:" << endl;
     cin >> nombre;
@@ -228,8 +244,9 @@ void registro()
     cout << "\t\t Contraseña" << endl;
     cin >> contrasenia;
     cout <<endl;
-    admins[i]=new Usuario(nombre,apellido,contrasenia);
-    ++i;
+    Usuario a(nombre,apellido,contrasenia);
+    admins[i]=a;
+    i++;
 
     cout << "============ Registro Exitoso ============" << endl;
     inicioSesion();
@@ -251,13 +268,12 @@ void mostrarMenu()
     {
         case 1: //Añadir nueva reservación
             cout << endl;
-            cout << "\tIngrese nombre de lugar destino:";
-            getline(cin, nom);
-            /*
-                    codigo con deestino
-                */
-            cout << "\tIngrese dia de salida:";
-            cin >> dia;
+            cout << "\tIngrese nombre de aerolinea";
+            cin>>nom;
+            if(afr.getAvion(0).aerolinea!=nom){
+                    menuPrincipal();
+            }
+
             break;
         case 2: //Mostrar todas las reservaciones
             cout << endl;
@@ -289,28 +305,51 @@ void adminMenu()
 {
     int opci;
     cout << "============ Opciones ============" << endl;
-    cout << "\t\t 1. Crear aerolinea" << endl;
-    cout << "\t\t 2. Eliminar aerolinea" << endl;
+    cout << "\t\t 1. Crear nuevo vuelo" << endl;
+    cout << "\t\t 2. Eliminar vuelo registrado" << endl;
     cout << "\t\t 4. Generar Reporte " << endl;
     cout << "\t\t 5. Salir" << endl;
     cout << "==================================================" << endl;
     cout << " Ingrese una opcion: ";
     cin >> opci;
-    string nombre;
     string aerolinea;
-    string destino;
+    int preBol;
+    Fecha f;
+    string fec;
+    int d,m,y;
+    Hora p;
+    Hora lleg;
+    string hour;
+    string hourlle;
+    int h,min,hlle,mlle;
     switch (opci)
     {
         case 1:
             cout << endl;
             cout << "Ingrese nombre de aerolinea..\t";
-            cin >> nombre;
+            cin >> aerolinea;
             cout << endl;
-            cout << "Ingrese destino de la aerolinea..\t";
-            cin >> destino;
+            cout << "Ingrese el precio de cada boleto..\t";
+            cin >> preBol;
             cout << endl;
-            cout << "Presione cualquier tecla para volver al menu.." << endl;
-            getch();
+            cout<< "Ingrese Fecha del vuelo(dd/mm/yy) \t";
+            cin>>fec;
+            d= stoi(fec.substr(0,2));
+            m= stoi(fec.substr(3,5));
+            y= stoi(fec.substr(6,fec.length()));
+            cout<< "Ingrese Hora de Partida del vuelo(hh:mm) \t";
+            cin>>hour;
+            h=stoi(hour.substr(0,2));
+            m= stoi(hour.substr(3,hour.length()));
+            cout<<endl;
+            cout<< "Ingrese Hora de LLegada del vuelo(hh:mm) \t";
+            cin>>hourlle;
+            hlle=stoi(hourlle.substr(0,2));
+            mlle= stoi(hourlle.substr(3,hourlle.length()));
+            cout<<endl;
+            cout << "============ Vuelo Registrado Correctamente ============" << endl;
+            adminMenu();
+
             break;
         case 2:
             cout << endl;

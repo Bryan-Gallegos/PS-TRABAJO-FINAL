@@ -6,16 +6,13 @@
 #define PROYECTOFINAL_PS_BOLETA_H
 
 #include <iostream>
-#include <string>
 #include "Hora.h"
 #include "Fecha.h"
 #include "Usuario.h"
 #include "Avion.h"
 
-
 class Boleta {
 public:
-    Boleta();
     Boleta(Usuario u, Avion a, int asiento);
     string nombre;
     string apellido;

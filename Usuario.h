@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 
@@ -17,7 +18,9 @@ public:
     string nombre;
     string apellido;
     string contrasenia;
-
+    int cantReservas=0;
+    void eliminarReserva(int p);
+    void mostrarReservas();
 };
 
 

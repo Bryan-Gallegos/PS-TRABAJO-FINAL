@@ -19,6 +19,7 @@ public:
     void verTodos();
     void verNombre();
     void addAvion(Avion a);
+    Avion getAvion(int i);
 };
 
 
