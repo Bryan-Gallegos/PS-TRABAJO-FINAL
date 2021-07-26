@@ -1,19 +1,20 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
-#ifndef PROYECTOFINAL_PS_BOLETA_H
-#define PROYECTOFINAL_PS_BOLETA_H
+#ifndef PROYECTPS_BOLETA_H
+#define PROYECTPS_BOLETA_H
 
 #include <iostream>
 #include "Hora.h"
 #include "Fecha.h"
-#include "Usuario.h"
+#include "Cliente.h"
 #include "Avion.h"
 
 class Boleta {
 public:
-    Boleta(Usuario u, Avion a, int asiento);
+    Boleta();
+    Boleta(Cliente u, Avion a, int asiento);
     string nombre;
     string apellido;
     int asiento;
@@ -23,6 +24,7 @@ public:
     Hora horaLlegada;
     int costo;
     void generarBoleta();
+    void exportarBoleta();
 };
 
-#endif //PROYECTOFINAL_PS_BOLETA_H
+#endif //PROYECTPS_BOLETA_H

@@ -10,6 +10,7 @@
 #include "Hora.h"
 #include "Avion.h"
 #include "Aeropuerto.h"
+#include "Cliente.h"
 #include "Boleta.h"
 
 //nuevo
@@ -22,18 +23,19 @@ int menuPrincipal();
 void inicioSesion();
 void registro();
 void mostrarMenu();
-void adminMenu();
+void eliminarReserva();
 
 
 // Usuarios por default
 static Usuario usuarios[10];
+static Boleta boletasCreadas[100];
 Usuario a("jimy", "revilla", "tellez");
 Usuario b("bryan","gallegos","carlos");
 
 //Creando aviones por default
-Avion plane1("LATAM Perú", 100, new Fecha(23,10,2021), new Hora(12,30), new Hora(14,15));
-Avion plane2("AVIANCA Perú", 100, new Fecha(5,9,2021), new Hora(14,00), new Hora(17,30));
-Avion plane3("Peruvian Airlines", 100, new Fecha(14,11,2021), new Hora(16,15), new Hora(21,00));
+Avion plane1("Latam", 100, new Fecha(23,10,2021), new Hora(12,30), new Hora(14,15));
+Avion plane2("Avianca", 100, new Fecha(5,9,2021), new Hora(14,00), new Hora(17,30));
+Avion plane3("Airlines", 100, new Fecha(14,11,2021), new Hora(16,15), new Hora(21,00));
 
 //Creando aeropuerto por default
 static Aeropuerto afr("Alfredo Rodriguez");
@@ -174,6 +176,7 @@ void registro()
     cout << "============ Registro Exitoso ============" << endl;
     inicioSesion();
 }
+int count=0;
 void mostrarMenu()
 {
     int opc;
@@ -187,39 +190,82 @@ void mostrarMenu()
     cin >> opc;
     string nom;
     string dia;
+    bool valido= false;
+    string  name;
+    string apell;
+    Cliente nuevo;
+    int posicion;
+    int asiento;
     switch (opc)
     {
         case 1: //Añadir nueva reservación
             cout << endl;
-            for (int j = 0; j < afr.getCantidad(); ++j) {
-                cout<< afr.flota[i].aerolinea+"\t";
-                cout<<"glotas";
-            }
+            cout << "============ Aerolineas Exixtentes ============" << endl;
+            afr.mostrarAviones();
+            cout << endl;
+            cout << "==================================================" << endl;
             cout<<endl;
-            cout << "\tIngrese nombre de aerolinea";
+            cout << "\tIngrese nombre de aerolinea ";
             cin>>nom;
-            if(afr.getAvion(0).aerolinea!=nom){
-                    menuPrincipal();
-            }
+            for (int j = 0; j < sizeof (afr.getFlota()); ++j) {
 
+                if(afr.getFlota()[j].verNombre()==nom){
+                    posicion=j;
+                    valido=true;
+                    break;
+                }
+            }
+            if (valido){
+                //cout<<"Aqui";
+                cout<<"Ingrese Nombre: ";
+                cin>>name;
+                cout<<"Ingrese Apellido: ";
+                cin>>apell;
+                cout<< "Ingrese su numero su numero de Asiento [1-100]: ";
+                cin>>asiento;
+                afr.getFlota()[posicion];
+                while(true){
+                    if(afr.getFlota()[posicion].marcarAsiento(asiento)== true){
+                        break;
+                    }else{
+                        cout<<"Vuela a ingresar el numero de asiento"<<endl;
+                        cin>>asiento;
+                    }
+                }
+                Cliente n1(name,apell);
+
+                Boleta b1(n1, afr.getFlota()[posicion], asiento);
+                b1.generarBoleta();
+                b1.exportarBoleta();
+                boletasCreadas[count] = b1;
+                count++;
+
+
+            }else{
+                cout<<"Avion no encontrado";
+            }
+            mostrarMenu();
             break;
         case 2: //Mostrar todas las reservaciones
-            cout << endl;
-            /*
-                    mostrar todos las reservaciones que hay
-                */
+            cout <<"Estoy aqui"<< endl;
+            for (int j = 0; j < count; ++j) {
+                boletasCreadas[j].generarBoleta();
+            }
             cout << endl;
             cout << "Presione cualquier tecla para volver al menu.." << endl;
-            getch();
+            mostrarMenu();
             break;
         case 3: //eliminar reservacion
             cout << "¿Cual numero de reservacion desea eliminar?";
             cin >> nom;
-            /*
-                    codigo de eliminacion de reservacion
-                */
+
+
+
+
+
+
             cout << "Presione cualquier tecla para volver al menu.." << endl;
-            getch();
+            mostrarMenu();
             break;
         case 4: //salir del programa
             cout << "============ Fin del programa ============" << endl;
@@ -229,82 +275,13 @@ void mostrarMenu()
             break;
     }
 }
-void adminMenu()
-{
-    int opci;
-    cout << "============ Opciones ============" << endl;
-    cout << "\t\t 1. Crear nuevo vuelo" << endl;
-    cout << "\t\t 2. Eliminar vuelo registrado" << endl;
-    cout << "\t\t 4. Generar Reporte " << endl;
-    cout << "\t\t 5. Salir" << endl;
-    cout << "==================================================" << endl;
-    cout << " Ingrese una opcion: ";
-    cin >> opci;
-    string aerolinea;
-    int preBol;
-    Fecha f;
-    string fec;
-    int d,m,y;
-    Hora p;
-    Hora lleg;
-    string hour;
-    string hourlle;
-    int h,min,hlle,mlle;
-    switch (opci)
-    {
-        case 1:
-            cout << endl;
-            cout << "Ingrese nombre de aerolinea..\t";
-            cin >> aerolinea;
-            cout << endl;
-            cout << "Ingrese el precio de cada boleto..\t";
-            cin >> preBol;
-            cout << endl;
-            cout<< "Ingrese Fecha del vuelo(dd/mm/yy) \t";
-            cin>>fec;
-            d= stoi(fec.substr(0,2));
-            m= stoi(fec.substr(3,5));
-            y= stoi(fec.substr(6,fec.length()));
-            cout<< "Ingrese Hora de Partida del vuelo(hh:mm) \t";
-            cin>>hour;
-            h=stoi(hour.substr(0,2));
-            m= stoi(hour.substr(3,hour.length()));
-            cout<<endl;
-            cout<< "Ingrese Hora de LLegada del vuelo(hh:mm) \t";
-            cin>>hourlle;
-            hlle=stoi(hourlle.substr(0,2));
-            mlle= stoi(hourlle.substr(3,hourlle.length()));
-            cout<<endl;
-            cout << "============ Vuelo Registrado Correctamente ============" << endl;
-            adminMenu();
+void eliminarReserva(){
+    /*for (i=1; i<TAM; i++)
+        for (j=0 ; j<TAM - 1; j++)
+            if (lista[j] > lista[j+1])
+                temp = lista[j];
+                lista[j] = lista[j+1];
+                lista[j+1] = temp;*/
 
-            break;
-        case 2:
-            cout << endl;
-            /*
-                    Mostrar todas las aerolineas
-                 */
-            cout << endl;
-            cout << "Ingresar nombre de aerolinea a eliminar..\t";
-            cin >> aerolinea;
-            cout << endl;
-            cout << "Presione cualquier tecla para volver al menu.." << endl;
-            getch();
-            break;
-        case 3:
-            cout << endl;
-            cout << "============ Generar Reporte ============";
-            /*
-                 codigo de generacion de reporte
-                 */
-            cout << "Presione cualquier tecla para volver al menu.." << endl;
-            getch();
-            break;
-        case 4:
-            cout << "============ Fin del programa ============" << endl;
-            break;
-        default: //opcion no valida
-            cout << "Opción desconocida!" << endl;
-            break;
-    }
 }
+

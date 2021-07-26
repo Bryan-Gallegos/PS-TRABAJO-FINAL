@@ -1,9 +1,9 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
-#ifndef PROYECTOFINAL_PS_AVION_H
-#define PROYECTOFINAL_PS_AVION_H
+#ifndef PROYECTPS_AVION_H
+#define PROYECTPS_AVION_H
 
 #include <iostream>
 #include <string>
@@ -16,18 +16,20 @@ public:
     Avion();
     Avion(string n, int p, Fecha v, Hora par, Hora lle);
     int cantPas=0; //numero de pasajeros actuales
-    bool  asientos [100]; // # de asientos en total (80 sc y 20 pc)
+    bool  asientos [100] ={false}; // # de asientos en total (80 sc y 20 pc)
     string aerolinea; //nombre de la aerolinea a la que pertenece
     int preBol; // precio de boleto
     Fecha fVuelo;
     Hora hPartida;
     Hora hLlegada;
-    void verNombre();
+    string verNombre();
     void agregarPasajero(int n);
     void retirarPasajero(int n);
+    bool verAsientoOcupado(int n);
     int verCantidadDePasajeros();
+    bool marcarAsiento(int number);
 
 };
 
 
-#endif //PROYECTOFINAL_PS_AVION_H
+#endif //PROYECTPS_AVION_H

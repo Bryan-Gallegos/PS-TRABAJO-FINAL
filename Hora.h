@@ -1,10 +1,9 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
-#ifndef PROYECTOFINAL_PS_HORA_H
-#define PROYECTOFINAL_PS_HORA_H
-
+#ifndef PROYECTPS_HORA_H
+#define PROYECTPS_HORA_H
 
 class Hora {
 public:
@@ -18,4 +17,6 @@ public:
 };
 
 
-#endif //PROYECTOFINAL_PS_HORA_H
+
+
+#endif //PROYECTPS_HORA_H

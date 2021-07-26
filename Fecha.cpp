@@ -1,5 +1,5 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
 #include "Fecha.h"
@@ -20,4 +20,12 @@ Fecha::Fecha(Fecha *pFecha) {
     dia=pFecha->dia;
     mes=pFecha->mes;
     anio=pFecha->anio;
+}
+int Fecha::getdia() {
+    return dia;
+}
+int Fecha::getmes()  {
+    return mes;
+}int Fecha::getYear(){
+    return anio;
 }

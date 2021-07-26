@@ -1,9 +1,10 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
-#ifndef PROYECTOFINAL_PS_USUARIO_H
-#define PROYECTOFINAL_PS_USUARIO_H
+#ifndef PROYECTPS_USUARIO_H
+#define PROYECTPS_USUARIO_H
+
 
 #include <iostream>
 #include <string>
@@ -24,4 +25,5 @@ public:
 };
 
 
-#endif //PROYECTOFINAL_PS_USUARIO_H
+
+#endif //PROYECTPS_USUARIO_H

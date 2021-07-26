@@ -1,5 +1,5 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
 #include "Aeropuerto.h"
@@ -25,14 +25,11 @@ Aeropuerto::Aeropuerto(string n) {
 }
 
 int Aeropuerto::getCantidad(){
-    int cant=0;
-    for (int i = 0; i < sizeof (flota); ++i) {
-        cant++;
-    }
-    return cant;
+
+    return sizeof (flota);
 }
-void Aeropuerto::verNombre() {
-    cout<<nombre<<endl;
+string Aeropuerto::verNombre() {
+    return nombre;
 }
 Avion* Aeropuerto::getFlota(){
     return flota;
@@ -42,10 +39,11 @@ Avion Aeropuerto::getAvion(int i){
 }
 
 void Aeropuerto::addAvion(Avion a) {
-    int i=0;
     flota[i]=a;
     i++;
 }
-
-
-
+void Aeropuerto::mostrarAviones(){
+    for (int i = 0; i < sizeof(getFlota()); ++i) {
+        cout <<flota[i].verNombre()+"\t";
+    }
+}

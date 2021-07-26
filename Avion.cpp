@@ -1,14 +1,13 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
-
 #include "Avion.h"
 #include "Fecha.h"
 #include "Hora.h"
 using namespace std;
 
-void Avion::verNombre() {
-    cout<<aerolinea<<endl;
+string Avion::verNombre() {
+    return aerolinea;
 }
 
 void Avion::agregarPasajero(int n) {
@@ -49,4 +48,18 @@ Avion::Avion() {
     fVuelo=new Fecha(0,0,0);
     hPartida=new Hora(0, 0);
     hLlegada=new Hora(0, 0);
+}
+bool Avion:: verAsientoOcupado(int n){
+    if (asientos[n-1]){
+        cout<<"Asiento Ocupado"<<endl;
+        return true;
+    }
+    return false;
+}
+bool Avion::marcarAsiento(int number){   //   true -> ocupado       false -> desocupado
+    if(!verAsientoOcupado(number)){
+        asientos[number-1]= true;
+        return true;
+    }
+    return false;
 }

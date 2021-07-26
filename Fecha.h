@@ -1,9 +1,9 @@
 //
-// Created by USUARIO on 24/7/2021.
+// Created by usuario on 24/07/2021.
 //
 
-#ifndef PROYECTOFINAL_PS_FECHA_H
-#define PROYECTOFINAL_PS_FECHA_H
+#ifndef PROYECTPS_FECHA_H
+#define PROYECTPS_FECHA_H
 
 
 class Fecha {
@@ -16,8 +16,11 @@ public:
     int dia;
     int mes;
     int anio;
-
+    int getdia();
+    int getmes();
+    int getYear();
 };
 
 
-#endif //PROYECTOFINAL_PS_FECHA_H
+
+#endif //PROYECTPS_FECHA_H
